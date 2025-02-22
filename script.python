@@ -1,0 +1,28 @@
+import sys
+
+def mobile_to_ip(mobile_number):
+    """
+    Converts a 10-digit mobile number into an IP address format.
+    """
+    if not mobile_number.isdigit() or len(mobile_number) != 10:
+        raise ValueError("Invalid mobile number. Please enter a 10-digit number.")
+    
+    # Split number into four octets
+    octet1 = int(mobile_number[:3]) % 256
+    octet2 = int(mobile_number[3:6]) % 256
+    octet3 = int(mobile_number[6:8]) % 256
+    octet4 = int(mobile_number[8:]) % 256
+    
+    return f"{octet1}.{octet2}.{octet3}.{octet4}"
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 convert_mobile_to_ip.py <10-digit mobile number>")
+        sys.exit(1)
+    
+    mobile_number = sys.argv[1]
+    try:
+        ip_address = mobile_to_ip(mobile_number)
+        print(f"Converted IP Address: {ip_address}")
+    except ValueError as e:
+        print(e)
